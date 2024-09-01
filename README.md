@@ -2,11 +2,11 @@
 
 Feiku (pronounced as "fake") is a tool to generate fake data. Unlike other solutions, it doesn't use YAML file to define data. Instead, it generates random data with specified formats like `sprintf` method.
 
-## Why faiku?
+## Why Feiku?
 
 Existing solutions tend to be memory-consuming because it loads all data into memory soon after `require`. It works, but 99.99% of the loaded data are unused. It's a waste.
 
-Also, while they provide tons of preset data, they don't provide a feature to enable custom data format. Think of addresses. What would be an ideal address for your country? Addresses in China should be different from ones in France. We want to define our own address format and then fill realistic value in it. With faiku, it's possible.
+Also, while they provide tons of preset data, they don't provide a feature to enable custom data format. Think of addresses. What would be an ideal address for your country? Addresses in China should be different from ones in France. We want to define our own address format and then fill realistic value in it. With Feiku, it's possible.
 
 ## Installation
 
