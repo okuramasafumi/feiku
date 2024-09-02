@@ -7,8 +7,8 @@ require_relative "feiku/generator"
 module Feiku
   class Error < StandardError; end
 
-  def self.register(module_name, format:, value:, length: nil)
-    const_set(module_name, Generator.new(format: format, value: value, length: length))
+  def self.register(module_name, format:, value:, length: nil, pool_size: 0)
+    const_set(module_name, Generator.new(format: format, value: value, length: length, pool_size: pool_size))
   end
 end
 

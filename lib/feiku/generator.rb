@@ -5,7 +5,7 @@ module Feiku
   class Generator
     RANDOM_STRING = [*"a".."z", *"A".."Z"].freeze
     RANDOM_INTEGER = [*0..9].freeze
-    def initialize(format:, value:, length:)
+    def initialize(format:, value:, length:, pool_size: 0)
       @length = length
       @value = value
       @format, @size = if value.is_a?(Hash)
@@ -15,9 +15,14 @@ module Feiku
                          format.gsub!(/%\{[^}]+\}/) { n += 1 and "%s" }
                          [format, n]
                        end
+      @pool = pool_size.zero? ? nil : Array.new(pool_size) { _generate }
     end
 
     def generate
+      @pool.nil? ? _generate : @pool.sample
+    end
+
+    def _generate
       @fillings = case @value
                   when :string, :integer
                     Array.new(@size) do
