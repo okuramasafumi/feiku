@@ -13,4 +13,4 @@ module Feiku
 end
 
 Feiku.register(:Email, format: "%<name>ss@%<domain>s",
-                       value: { name: %w[alice bob charlie], domain: %w[gmail.com yahoo.com] })
+                       value: { name: %w[alice bob charlie], domain: %w[a.example.invalid b.example.invalid] })
