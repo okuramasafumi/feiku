@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+using(Module.new do
+  refine Array do
+    alias_method :generate, :sample
+  end
+end)
+
 module Feiku
   # Generator is a behind-scene class that generates fake data
   class Generator
@@ -29,7 +35,7 @@ module Feiku
                       length = @length.is_a?(Integer) ? @length : @length.to_a.sample
                       self.class.const_get("RANDOM_#{@value.to_s.upcase}").sample(length).join
                     end
-                  when Hash then @value.transform_values(&:sample)
+                  when Hash then @value.transform_values(&:generate)
                   else raise
                   end
       @format % @fillings

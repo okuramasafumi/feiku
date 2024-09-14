@@ -2,6 +2,7 @@
 
 require_relative "feiku/version"
 require_relative "feiku/generator"
+require_relative "feiku/unit"
 
 # Toplevel
 module Feiku
@@ -12,5 +13,7 @@ module Feiku
   end
 end
 
-Feiku.register(:Email, format: "%<name>ss@%<domain>s",
-                       value: { name: %w[alice bob charlie], domain: %w[a.example.invalid b.example.invalid] })
+Feiku.register(:Domain, format: "%<name>s.example", value: { name: Feiku::Username })
+Feiku.register(:Email,
+               format: "%<name>s@%<domain>s",
+               value: { name: Feiku::Username, domain: Feiku::Domain })
