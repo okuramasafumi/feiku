@@ -11,23 +11,32 @@ module Feiku
       @data_type = data_type
       @length = length
       @unique = false
+      @uniqueness_pool = []
     end
 
-    def generate(max_attempt: 10, &block)
+    def generate(max_attempt: 1000, &block)
       length = @length.is_a?(Integer) ? @length : @length.to_a.sample
       generated = _generate(length)
-      return generated if check_success_with(generated, block) && check_uniqueness(generated)
+      if check_success_with(generated, block) && check_uniqueness(generated)
+        @uniqueness_pool << generated
+        return generated
+      end
 
+      try_until_success(length, max_attempt, &block)
+    end
+
+    def try_until_success(length, max_attempt, &block)
       attempt_count = 0
       while attempt_count <= max_attempt
         item = _generate(length)
-        return item if check_success_with(item) && check_uniqueness(item)
+        if check_success_with(item, block) && check_uniqueness(item)
+          @uniqueness_pool << item
+          return item
+        end
+
+        attempt_count += 1
       end
       raise Feiku::Error, "Cannot generate correct data within given attempt times: #{max_attempt}"
-    end
-
-    def filter_result(generated, &block)
-      generated = _generate(length) until block.call(generated)
     end
 
     def unique
@@ -46,8 +55,7 @@ module Feiku
     def check_uniqueness(item)
       return true unless @unique
 
-      # TODO
-      item == 42
+      @uniqueness_pool.none? { |pool_item| pool_item == item }
     end
 
     def _generate(length)
