@@ -1,7 +1,12 @@
 AllCops:
-  TargetRubyVersion: 3.0
   Exclude:
     - 'feiku.gemspec'
+  NewCops: enable
+  TargetRubyVersion: 3.0
+
+Metrics:
+  Exclude:
+    - 'test/**/*'
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
