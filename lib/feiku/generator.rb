@@ -28,6 +28,8 @@ module Feiku
       @pool.nil? ? _generate : @pool.sample
     end
 
+    private
+
     def _generate
       @fillings = case @value
                   when :string, :integer
