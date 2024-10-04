@@ -11,7 +11,7 @@ module Feiku
   class Generator
     RANDOM_STRING = [*"a".."z", *"A".."Z"].freeze
     RANDOM_INTEGER = [*0..9].freeze
-    def initialize(format:, value:, length:, pool_size: 0)
+    def initialize(format:, value:, length:, pool_size: 0, &block) # rubocop:disable Metrics/MethodLength
       @length = length
       @value = value
       @format, @size = if value.is_a?(Hash)
@@ -22,6 +22,7 @@ module Feiku
                          [format, n]
                        end
       @pool = pool_size.zero? ? nil : Array.new(pool_size) { _generate }
+      self.class.class_eval(&block) if block_given?
     end
 
     def generate
