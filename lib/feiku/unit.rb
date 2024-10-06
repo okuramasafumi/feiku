@@ -66,9 +66,8 @@ module Feiku
       else raise Feiku::Error
       end
     end
+    Username = Unit.new(data_type: :alphanumeric, length: 2..10)
+    Firstname = Unit.new(data_type: ->(l) { Feiku::Unit::RANDOM_STRING.sample(l).join.capitalize }, length: 3..8)
+    Lastname = Firstname
   end
-
-  Username = Unit.new(data_type: :alphanumeric, length: 2..10)
-  Firstname = Unit.new(data_type: ->(l) { Feiku::Unit::RANDOM_STRING.sample(l).join.capitalize }, length: 3..8)
-  Lastname = Firstname
 end

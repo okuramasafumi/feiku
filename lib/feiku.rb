@@ -22,19 +22,21 @@ module Feiku
   def self.lookup(module_name, method_name)
     @faker_compat_registry.fetch("#{module_name}.#{method_name}")
   end
-end
 
-Feiku.register(:Name, format: "%<first_name>s %<last_name>s",
-                      value: { first_name: Feiku::Firstname, last_name: Feiku::Lastname },
-                      faker_compat: "Name.name")
-Feiku.register(:NameWithMiddle, format: "%<first_name>s %<middle_name>s %<last_name>s",
-                                value: {
-                                  first_name: Feiku::Firstname,
-                                  middle_name: Feiku::Firstname,
-                                  last_name: Feiku::Lastname
-                                },
-                                faker_compat: "Name.name_with_middle")
-Feiku.register(:Domain, format: "%<name>s.example", value: { name: Feiku::Username })
-Feiku.register(:Email,
-               format: "%<name>s@%<domain>s",
-               value: { name: Feiku::Username, domain: Feiku::Domain })
+  register(:Name, format: "%<first_name>s %<last_name>s",
+                  value: { first_name: Unit::Firstname, last_name: Unit::Lastname },
+                  faker_compat: "Name.name")
+  register(:Firstname, format: "%<name>s", value: { name: Unit::Firstname }, faker_compat: "Name.first_name")
+  register(:Middlename, format: "%<name>s", value: { name: Unit::Firstname }, faker_compat: "Name.middle_name")
+  register(:Lastname, format: "%<name>s", value: { name: Unit::Firstname }, faker_compat: "Name.last_name")
+  register(:NameWithMiddle, format: "%<first_name>s %<middle_name>s %<last_name>s",
+                            value: {
+                              first_name: Unit::Firstname,
+                              middle_name: Unit::Firstname,
+                              last_name: Unit::Lastname
+                            },
+                            faker_compat: "Name.name_with_middle")
+  register(:Domain, format: "%<name>s.example", value: { name: Unit::Username })
+  register(:Email, format: "%<name>s@%<domain>s",
+                   value: { name: Unit::Username, domain: Domain })
+end
