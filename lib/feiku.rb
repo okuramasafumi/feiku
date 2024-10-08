@@ -15,6 +15,7 @@ module Feiku
   def self.register(module_name, format:, value:, length: nil, pool_size: 0, faker_compat: nil) # rubocop:disable Metrics/ParameterLists
     generator = Generator.new(format: format, value: value, length: length, pool_size: pool_size)
     @faker_compat_registry.update(faker_compat => generator) if faker_compat
+    remove_const(module_name) if const_defined?(module_name)
     const_set(module_name, generator)
   end
 

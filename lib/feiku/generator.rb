@@ -18,8 +18,8 @@ module Feiku
                          [format, value.size]
                        else
                          n = 0
-                         format.gsub!(/%\{[^}]+\}/) { n += 1 and "%s" }
-                         [format, n]
+                         f = format.gsub(/%\{[^}]+\}/) { n += 1 and "%s" }
+                         [f, n]
                        end
       @pool = pool_size.zero? ? nil : Array.new(pool_size) { _generate }
       self.class.class_eval(&block) if block_given?
