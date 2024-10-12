@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'feiku.gemspec'
+    - 'vendor/**/*'
   NewCops: enable
   TargetRubyVersion: 3.0
 
