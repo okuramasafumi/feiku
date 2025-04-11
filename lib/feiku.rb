@@ -39,5 +39,6 @@ module Feiku
                             faker_compat: "Name.name_with_middle")
   register(:Domain, format: "%<name>s.example", value: { name: Unit::Username })
   register(:Email, format: "%<name>s@%<domain>s",
-                   value: { name: Unit::Username, domain: Domain })
+                   value: { name: Unit::Username, domain: Domain },
+                   faker_compat: "Internet.email")
 end
