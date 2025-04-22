@@ -16,11 +16,11 @@ module Feiku
 
     private
 
-    def method_missing(meth)
+    def method_missing(meth, *args, **kwargs)
       generator = ::Feiku.lookup(@name, meth)
       raise ArgumentError, "No generator found for #{@name}.#{meth}" unless generator
 
-      generator.generate
+      generator.generate(*args, **kwargs)
     end
 
     def respond_to_missing?(meth)
