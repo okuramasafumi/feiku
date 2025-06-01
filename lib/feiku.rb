@@ -20,10 +20,11 @@ module Feiku
   end
 
   # An interface for Faker compatibility
-  def self.lookup(module_name, method_name)
-    @faker_compat_registry.fetch("#{module_name}.#{method_name}")
+  def self.lookup(module_name, method_name, &block)
+    @faker_compat_registry.fetch("#{module_name}.#{method_name}", &block)
   end
 
+  register(:Default, format: "%<name>s", value: { name: Unit::Username })
   register(:Name, format: "%<first_name>s %<last_name>s",
                   value: { first_name: Unit::Firstname, last_name: Unit::Lastname },
                   faker_compat: "Name.name")
