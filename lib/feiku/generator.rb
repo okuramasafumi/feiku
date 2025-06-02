@@ -25,7 +25,7 @@ module Feiku
       self.class.class_eval(&block) if block_given?
     end
 
-    def generate(*args, **kwargs, &block)
+    def generate(*)
       @pool.nil? ? _generate : @pool.sample
     end
 
