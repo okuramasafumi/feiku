@@ -5,9 +5,18 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0
 
+inherit_gem:
+  rubocop-gem_dev: 'config/rubocop.yml'
+
+Bundler/GemComment:
+  Enabled: false
+
 Metrics:
   Exclude:
     - 'test/**/*'
+
+Style/MissingElse:
+  EnforcedStyle: case
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

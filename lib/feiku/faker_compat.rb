@@ -2,7 +2,8 @@
 
 module Feiku
   # MetaProxy is a class just for const_missing
-  class MetaProxy
+  module MetaProxy
+    # This lets `Faker::Something` works
     def self.const_missing(name)
       Proxy.new(name)
     end
